@@ -1,0 +1,3 @@
+rootProject.name = 'cs2010'
+
+include 'lab1', 'assignment2', 'assignment3'

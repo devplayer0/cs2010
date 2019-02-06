@@ -1,0 +1,35 @@
+plugins {
+	id 'java'
+	id 'application'
+	id 'jacoco'
+}
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'application'
+	apply plugin: 'jacoco'
+
+	group 'edu.osullj19'
+	version '1.0-SNAPSHOT'
+
+	sourceCompatibility = 1.7
+
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		testCompile 'junit:junit:4.12'
+	}
+
+	jacocoTestReport {
+		reports {
+			xml.enabled false
+			csv.enabled false
+			html.destination file("${buildDir}/jacocoHtml")
+		}
+	}
+	task webcatJar(type: Jar) {
+		classifier = 'webcat'
+		from sourceSets.main.allJava + sourceSets.test.allJava
+	}
+}
