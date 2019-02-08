@@ -22,7 +22,7 @@ class SortComparison {
      * @return array sorted in ascending order.
      *
      */
-    static double[] insertionSort(double[] toSort) {
+    public static double[] insertionSort(double[] toSort) {
         if (toSort == null) {
             return null;
         }
@@ -90,7 +90,7 @@ class SortComparison {
      * @return array sorted in ascending order
      *
      */
-    static double[] quickSort(double[] toSort) {
+    public static double[] quickSort(double[] toSort) {
         if (toSort == null) {
             return null;
         }
@@ -118,7 +118,7 @@ class SortComparison {
      * @param toSort: An unsorted array of doubles.
      * @return after the method returns, the array must be in ascending sorted order.
      */
-    static double[] mergeSortIterative(double toSort[]) {
+    public static double[] mergeSortIterative(double toSort[]) {
         if (toSort == null) {
             return null;
         }
@@ -155,7 +155,7 @@ class SortComparison {
      * @param toSort: An unsorted array of doubles.
      * @return after the method returns, the array must be in ascending sorted order.
      */
-    static double[] mergeSortRecursive(double toSort[]) {
+    public static double[] mergeSortRecursive(double toSort[]) {
         if (toSort == null) {
             return null;
         }
@@ -172,7 +172,7 @@ class SortComparison {
      * @return array sorted in ascending order
      *
      */
-    static double[] selectionSort(double toSort[]) {
+    public static double[] selectionSort(double toSort[]) {
         if (toSort == null) {
             return null;
         }
