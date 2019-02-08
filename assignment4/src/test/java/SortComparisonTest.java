@@ -5,6 +5,8 @@ import org.junit.runners.JUnit4;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -83,6 +85,7 @@ public class SortComparisonTest {
         private final String filename;
         private int runs;
         private double[] numbers;
+        private ThreadMXBean mxBean;
         private Results results;
 
         private HashMap<String, Method> methods;
@@ -90,6 +93,7 @@ public class SortComparisonTest {
             super("Experiment-"+filename);
             this.filename = filename;
             this.runs = runs;
+            mxBean = ManagementFactory.getThreadMXBean();
             results = new Results();
 
             loadMethods();
@@ -169,9 +173,9 @@ public class SortComparisonTest {
             @Override
             public void run() {
                 try {
-                    long start = System.nanoTime();
+                    long start = mxBean.getCurrentThreadCpuTime();
                     sort.invoke(null, numbers);
-                    long duration = System.nanoTime() - start;
+                    long duration = mxBean.getCurrentThreadCpuTime() - start;
 
                     results.put(method, duration);
                 } catch (IllegalAccessException | InvocationTargetException e) {
@@ -186,7 +190,7 @@ public class SortComparisonTest {
         Experiment[] experiments = new Experiment[TEST_FILES.size()];
         int i = 0;
         for (String filename : TEST_FILES.keySet()) {
-            Experiment experiment = new Experiment(filename, 100);
+            Experiment experiment = new Experiment(filename, 1000);
             experiment.start();
             experiments[i++] = experiment;
         }
