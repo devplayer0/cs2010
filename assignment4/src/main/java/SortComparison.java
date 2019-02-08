@@ -33,15 +33,63 @@ class SortComparison {
         return a;
     }
 
+    private static int partition(double[] a, int lo, int hi) {
+        // Median-of-three pivot selection
+        int mid = (lo + hi) >>> 1;
+        if (a[mid] < a[lo]) {
+            swap(a, mid, lo);
+        }
+        if (a[hi] < a[lo]) {
+            swap(a, hi, lo);
+        }
+        if (a[mid] < a[hi]) {
+            swap(a, mid, hi);
+        }
+
+        double pivot = a[hi];
+        int i = lo - 1;
+        int j = hi + 1;
+        while (true) {
+            do {
+                i++;
+            } while (a[i] < pivot);
+            do {
+                j--;
+            } while (a[j] > pivot);
+
+            if (i >= j) {
+                return j;
+            }
+            swap(a, i, j);
+        }
+    }
+    private static void qsort(double[] a, int lo, int hi) {
+        if (lo >= hi) {
+            return;
+        }
+
+        // 3-pivot
+        int pMid = partition(a, lo, hi);
+        int pLo = partition(a, lo, pMid);
+        int pHi = partition(a, pMid + 1, hi);
+
+        qsort(a, lo, pLo);
+        qsort(a, pLo + 1, pMid);
+        qsort(a, pMid + 1, pHi);
+        qsort(a, pHi + 1, hi);
+    }
+
     /**
      * Sorts an array of doubles using Quick Sort.
      * This method is static, thus it can be called as SortComparison.sort(a)
-     * @param a: An unsorted array of doubles.
+     * @param toSort: An unsorted array of doubles.
      * @return array sorted in ascending order
      *
      */
-    static double[] quickSort(double[] a) {
-        return null;
+    static double[] quickSort(double[] toSort) {
+        double[] a = toSort.clone();
+        qsort(a, 0, toSort.length - 1);
+        return a;
     }
 
     /**

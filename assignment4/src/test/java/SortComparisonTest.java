@@ -15,6 +15,7 @@ public class SortComparisonTest {
     public void testEmpty() {
         double[] empty = new double[0];
         assertArrayEquals(empty, SortComparison.insertionSort(empty), 0);
+        assertArrayEquals(empty, SortComparison.quickSort(empty), 0);
     }
 
     @Test
@@ -23,5 +24,6 @@ public class SortComparisonTest {
         double[] simpleSorted = { 2, 5, 150.5, 170, 200, 300, 400, 700, 1337 };
 
         assertArrayEquals(simpleSorted, SortComparison.insertionSort(simple), 0);
+        assertArrayEquals(simpleSorted, SortComparison.quickSort(simple), 0);
     }
 }
