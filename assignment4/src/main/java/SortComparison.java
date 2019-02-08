@@ -23,6 +23,10 @@ class SortComparison {
      *
      */
     static double[] insertionSort(double[] toSort) {
+        if (toSort == null) {
+            return null;
+        }
+
         double[] a = toSort.clone();
         for (int i = 1; i < a.length; i++) {
             for (int j = i; j > 0 && a[j-1] > a[j]; j--) {
@@ -87,6 +91,10 @@ class SortComparison {
      *
      */
     static double[] quickSort(double[] toSort) {
+        if (toSort == null) {
+            return null;
+        }
+
         double[] a = toSort.clone();
         qsort(a, 0, toSort.length - 1);
         return a;
@@ -111,6 +119,10 @@ class SortComparison {
      * @return after the method returns, the array must be in ascending sorted order.
      */
     static double[] mergeSortIterative(double toSort[]) {
+        if (toSort == null) {
+            return null;
+        }
+
         double[] a = toSort.clone();
         double[] b = a.clone();
         for (int size = 1; size < a.length; size = 2*size) {
@@ -144,6 +156,10 @@ class SortComparison {
      * @return after the method returns, the array must be in ascending sorted order.
      */
     static double[] mergeSortRecursive(double toSort[]) {
+        if (toSort == null) {
+            return null;
+        }
+
         double[] a = toSort.clone();
         msort(a, a.clone(), 0, toSort.length);
         return a;
@@ -157,6 +173,10 @@ class SortComparison {
      *
      */
     static double[] selectionSort(double toSort[]) {
+        if (toSort == null) {
+            return null;
+        }
+
         double[] a = toSort.clone();
         for (int i = 0; i < a.length - 1; i++) {
             int min = i;

@@ -3,6 +3,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(JUnit4.class)
 public class SortComparisonTest {
@@ -19,6 +20,15 @@ public class SortComparisonTest {
         assertArrayEquals(empty, SortComparison.mergeSortIterative(empty), 0);
         assertArrayEquals(empty, SortComparison.mergeSortRecursive(empty), 0);
         assertArrayEquals(empty, SortComparison.selectionSort(empty), 0);
+    }
+
+    @Test
+    public void testNull() {
+        assertNull(SortComparison.insertionSort(null));
+        assertNull(SortComparison.quickSort(null));
+        assertNull(SortComparison.mergeSortIterative(null));
+        assertNull(SortComparison.mergeSortRecursive(null));
+        assertNull(SortComparison.selectionSort(null));
     }
 
     @Test
