@@ -9,6 +9,12 @@
  */
 
 class SortComparison {
+    private static void swap(double[] arr, int a, int b) {
+        double tmp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = tmp;
+    }
+
     /**
      * Sorts an array of doubles using InsertionSort.
      * This method is static, thus it can be called as SortComparison.sort(a)
@@ -17,7 +23,14 @@ class SortComparison {
      *
      */
     static double[] insertionSort(double[] toSort) {
-        
+        double[] a = toSort.clone();
+        for (int i = 1; i < a.length; i++) {
+            for (int j = i; j > 0 && a[j-1] > a[j]; j--) {
+                swap(a, j, j - 1);
+            }
+        }
+
+        return a;
     }
 
     /**
@@ -28,7 +41,7 @@ class SortComparison {
      *
      */
     static double[] quickSort(double[] a) {
-
+        return null;
     }
 
     /**
@@ -47,7 +60,7 @@ class SortComparison {
      */
 
     static double[] mergeSortIterative(double a[]) {
-
+        return null;
     }
 
     /**
@@ -58,7 +71,7 @@ class SortComparison {
      * @return after the method returns, the array must be in ascending sorted order.
      */
     static double[] mergeSortRecursive(double a[]) {
-
+        return null;
     }
 
     /**
@@ -69,7 +82,7 @@ class SortComparison {
      *
      */
     static double[] selectionSort(double a[]) {
-
+        return null;
     }
 
     public static void main(String[] args) {
