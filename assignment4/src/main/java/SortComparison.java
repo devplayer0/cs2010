@@ -152,12 +152,27 @@ class SortComparison {
     /**
      * Sorts an array of doubles using Selection Sort.
      * This method is static, thus it can be called as SortComparison.sort(a)
-     * @param a: An unsorted array of doubles.
+     * @param toSort: An unsorted array of doubles.
      * @return array sorted in ascending order
      *
      */
-    static double[] selectionSort(double a[]) {
-        return null;
+    static double[] selectionSort(double toSort[]) {
+        double[] a = toSort.clone();
+        for (int i = 0; i < a.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < a.length; j++) {
+                if (a[j] < a[min]) {
+                    min = j;
+                }
+
+            }
+
+            if (min != i) {
+                swap(a, i, min);
+            }
+        }
+
+        return a;
     }
 
     public static void main(String[] args) {
