@@ -16,6 +16,7 @@ public class SortComparisonTest {
         double[] empty = new double[0];
         assertArrayEquals(empty, SortComparison.insertionSort(empty), 0);
         assertArrayEquals(empty, SortComparison.quickSort(empty), 0);
+        assertArrayEquals(empty, SortComparison.mergeSortIterative(empty), 0);
         assertArrayEquals(empty, SortComparison.mergeSortRecursive(empty), 0);
     }
 
@@ -26,6 +27,7 @@ public class SortComparisonTest {
 
         assertArrayEquals(simpleSorted, SortComparison.insertionSort(simple), 0);
         assertArrayEquals(simpleSorted, SortComparison.quickSort(simple), 0);
+        assertArrayEquals(simpleSorted, SortComparison.mergeSortIterative(simple), 0);
         assertArrayEquals(simpleSorted, SortComparison.mergeSortRecursive(simple), 0);
     }
 }

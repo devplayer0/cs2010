@@ -92,18 +92,6 @@ class SortComparison {
         return a;
     }
 
-    /**
-     * Sorts an array of doubles using iterative implementation of Merge Sort.
-     * This method is static, thus it can be called as SortComparison.sort(a)
-     *
-     * @param a: An unsorted array of doubles.
-     * @return after the method returns, the array must be in ascending sorted order.
-     */
-
-    static double[] mergeSortIterative(double a[]) {
-        return null;
-    }
-
     private static void msortMerge(double[] a, double[] b, int lo, int mid, int hi) {
         int i = lo;
         int j = mid;
@@ -115,6 +103,29 @@ class SortComparison {
             }
         }
     }
+    /**
+     * Sorts an array of doubles using iterative implementation of Merge Sort.
+     * This method is static, thus it can be called as SortComparison.sort(a)
+     *
+     * @param toSort: An unsorted array of doubles.
+     * @return after the method returns, the array must be in ascending sorted order.
+     */
+    static double[] mergeSortIterative(double toSort[]) {
+        double[] a = toSort.clone();
+        double[] b = a.clone();
+        for (int size = 1; size < a.length; size = 2*size) {
+            for (int lo = 0; lo < a.length; lo += 2*size) {
+                msortMerge(a, b, lo, Math.min(lo+size, a.length), Math.min(lo + (2*size), a.length));
+            }
+
+            double[] tmp = b;
+            b = a;
+            a = tmp;
+        }
+
+        return a;
+    }
+
     private static void msort(double[] a, double[] b, int lo, int hi) {
         if (hi - lo < 2) {
             return;
