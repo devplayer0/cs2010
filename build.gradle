@@ -8,6 +8,8 @@ subprojects {
 	apply plugin: 'java'
 	apply plugin: 'application'
 	apply plugin: 'jacoco'
+	test.finalizedBy jacocoTestReport
+	check.dependsOn jacocoTestCoverageVerification
 
 	group 'edu.osullj19'
 	version '1.0-SNAPSHOT'
