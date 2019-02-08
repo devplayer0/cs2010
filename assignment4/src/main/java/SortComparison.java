@@ -93,13 +93,6 @@ class SortComparison {
     }
 
     /**
-     * Sorts an array of doubles using Merge Sort.
-     * This method is static, thus it can be called as SortComparison.sort(a)
-     * @param a: An unsorted array of doubles.
-     * @return array sorted in ascending order
-     *
-     */
-    /**
      * Sorts an array of doubles using iterative implementation of Merge Sort.
      * This method is static, thus it can be called as SortComparison.sort(a)
      *
@@ -111,15 +104,38 @@ class SortComparison {
         return null;
     }
 
+    private static void msortMerge(double[] a, double[] b, int lo, int mid, int hi) {
+        int i = lo;
+        int j = mid;
+        for (int k = lo; k < hi; k++) {
+            if (i < mid && (j >= hi || a[i] <= a[j])) {
+                b[k] = a[i++];
+            } else {
+                b[k] = a[j++];
+            }
+        }
+    }
+    private static void msort(double[] a, double[] b, int lo, int hi) {
+        if (hi - lo < 2) {
+            return;
+        }
+
+        int mid = (lo + hi) >>> 1;
+        msort(b, a, lo, mid);
+        msort(b, a, mid, hi);
+        msortMerge(b, a, lo, mid, hi);
+    }
     /**
      * Sorts an array of doubles using recursive implementation of Merge Sort.
      * This method is static, thus it can be called as SortComparison.sort(a)
      *
-     * @param a: An unsorted array of doubles.
+     * @param toSort: An unsorted array of doubles.
      * @return after the method returns, the array must be in ascending sorted order.
      */
-    static double[] mergeSortRecursive(double a[]) {
-        return null;
+    static double[] mergeSortRecursive(double toSort[]) {
+        double[] a = toSort.clone();
+        msort(a, a.clone(), 0, toSort.length);
+        return a;
     }
 
     /**
