@@ -16,6 +16,19 @@ import java.util.concurrent.ConcurrentHashMap;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNull;
 
+/*
+ * Running time (CPU time for 1000 runs average as 3 runs shows a lot of variance):
+ * 10 random:           mergeSortIterative:   8.395us, mergeSortRecursive:   9.399us, insertionSort:   7.642us, quickSort:  10.490us, selectionSort:   7.831us
+ * 100 random:          mergeSortIterative:  16.881us, mergeSortRecursive:  19.866us, insertionSort:  13.411us, quickSort:  22.703us, selectionSort:  20.968us
+ * 1000 random:         mergeSortIterative: 129.185us, mergeSortRecursive: 155.905us, insertionSort: 322.392us, quickSort: 172.567us, selectionSort: 658.994us
+ * 1000 few unique:     mergeSortIterative: 122.504us, mergeSortRecursive: 151.591us, insertionSort: 314.121us, quickSort: 147.324us, selectionSort: 633.301us
+ * 1000 nearly ordered: mergeSortIterative:  77.071us, mergeSortRecursive:  97.879us, insertionSort:  78.630us, quickSort: 120.126us, selectionSort: 576.187us
+ * 1000 reverse order:  mergeSortIterative:  61.244us, mergeSortRecursive:  76.977us, insertionSort: 608.313us, quickSort:  88.659us, selectionSort: 804.743us
+ * 1000 sorted:         mergeSortIterative:  55.952us, mergeSortRecursive:  71.795us, insertionSort:  16.449us, quickSort:  58.048us, selectionSort: 552.547us
+ * Questions:
+ *  a.
+ */
+
 @RunWith(JUnit4.class)
 public class SortComparisonTest {
     @Test
