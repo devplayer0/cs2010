@@ -17,6 +17,8 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNull;
 
 /*
+ * See https://git.nul.ie/dev/cs2010/src/branch/master/assignment4 for version control
+ *
  * Running time (CPU time for 1000 runs average as 3 runs shows a lot of variance):
  * 10 random:           mergeSortIterative:   8.395us, mergeSortRecursive:   9.399us, insertionSort:   7.642us, quickSort:  10.490us, selectionSort:   7.831us
  * 100 random:          mergeSortIterative:  16.881us, mergeSortRecursive:  19.866us, insertionSort:  13.411us, quickSort:  22.703us, selectionSort:  20.968us
@@ -25,8 +27,27 @@ import static org.junit.Assert.assertNull;
  * 1000 nearly ordered: mergeSortIterative:  77.071us, mergeSortRecursive:  97.879us, insertionSort:  78.630us, quickSort: 120.126us, selectionSort: 576.187us
  * 1000 reverse order:  mergeSortIterative:  61.244us, mergeSortRecursive:  76.977us, insertionSort: 608.313us, quickSort:  88.659us, selectionSort: 804.743us
  * 1000 sorted:         mergeSortIterative:  55.952us, mergeSortRecursive:  71.795us, insertionSort:  16.449us, quickSort:  58.048us, selectionSort: 552.547us
+ *
  * Questions:
- *  a.
+ *  a. Selection sort is affected most by the order of the inputs, since for every element it must search the remainder
+ *     of the array for the next lowest element. The worst case scenario is therefore an array in reverse order, since
+ *     the entire array (past the current element) must be traversed on every iteration. (See the ~805us result for 1000
+ *     reverse ordered elements, the worst result)
+ *  b. Insertion sort has the biggest difference based on the type of input (~608us vs. ~16us) because if the array is
+ *     already sorted, the inner loop does a comparison to see if swapping is needed and immediately exits. Similarly to
+ *     selection sort, the inner loop will need to traverse backwards the full length behind the outer loop's current
+ *     element every iteration, swapping as it goes.
+ *  c. Merge sort has the best scalability (both iterative and recursive, 8-10us -> 17-20us -> 129-156us)
+ *     Selection sort has the worst scalability (~8us -> ~21us -> ~659us)
+ *  d. There was a bit of difference between iterative and recursive merge sort. Iterative merge sort was roughly
+ *     25% faster across all input types, although the input size is still very small.
+ *  e. 10 random           : Insertion sort
+ *     100 random          : Insertion sort
+ *     1000 random         : Iterative merge sort
+ *     1000 few unique     : Iterative merge sort
+ *     1000 nearly ordered : Iterative merge sort
+ *     1000 reverse order  : Iterative merge sort
+ *     1000 sorted         : Insertion sort
  */
 
 @RunWith(JUnit4.class)
