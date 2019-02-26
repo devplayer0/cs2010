@@ -32,6 +32,6 @@ subprojects {
 	}
 	task webcatJar(type: Jar) {
 		classifier = 'webcat'
-		from sourceSets.main.allJava + sourceSets.test.allJava
+		from sourceSets.main.allJava + sourceSets.test.allJava + sourceSets.main.resources
 	}
 }
