@@ -1,8 +1,9 @@
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
 public class CompetitionTests {
@@ -88,6 +89,50 @@ public class CompetitionTests {
         Graph<Integer, Double> graph3 = Graph.parseFromStream(getClass().getResourceAsStream("1000EWD.txt"));
         assertEquals(1000, graph3.vertexCount());
         assertEquals(16866, graph3.edgeCount());
+    }
+
+    @Test
+    public void testHeapPassthrough() {
+        // Purely for coverage, these just pass through to the internal ArrayList
+        MinHeap<Double> heap = new MinHeap<>();
+        new MinHeap<>(1);
+        heap.size();
+        heap.isEmpty();
+        heap.contains(null);
+        heap.iterator();
+        heap.toArray();
+        heap.toArray(new Double[0]);
+        heap.containsAll(new ArrayList<>());
+        heap.clear();
+
+        try {
+            heap.remove(null);
+            fail();
+        } catch (UnsupportedOperationException ex) {}
+        try {
+            heap.removeAll(null);
+            fail();
+        } catch (UnsupportedOperationException ex) {}
+        try {
+            heap.retainAll(null);
+            fail();
+        } catch (UnsupportedOperationException ex) {}
+    }
+    @Test
+    public void testHeap() {
+        MinHeap<Double> heap = new MinHeap<>();
+        assertNull(heap.getMin());
+        assertNull(heap.extractMin());
+
+        heap.addAll(Arrays.asList(5., 3., 9., 0., 1., 1., -2., 11.));
+
+        assertEquals(-2., heap.getMin(), 0);
+        assertEquals(-2., heap.extractMin(), 0);
+        assertEquals(0., heap.extractMin(), 0);
+        assertEquals(1., heap.extractMin(), 0);
+        assertEquals(1., heap.extractMin(), 0);
+        assertEquals(3., heap.extractMin(), 0);
+        assertEquals(5., heap.extractMin(), 0);
     }
 
     @Test
