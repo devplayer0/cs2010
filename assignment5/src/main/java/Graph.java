@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 public class Graph<V, W extends Comparable<W>> {
     private Map<V, Map<V, W>> adjacency;
+    private int edgeCount;
+
     public Graph() {
         adjacency = new HashMap<>();
     }
@@ -28,11 +30,16 @@ public class Graph<V, W extends Comparable<W>> {
             return false;
         }
 
-        adjacency.remove(vertex);
+        edgeCount -= adjacency.remove(vertex).size();
         for (Map<V, W> adj : adjacency.values()) {
-            adj.remove(vertex);
+            if (adj.remove(vertex) != null) {
+                edgeCount--;
+            }
         }
         return true;
+    }
+    public int vertexCount() {
+        return adjacency.size();
     }
 
     public boolean addEdge(V a, V b, W weight) {
@@ -43,7 +50,11 @@ public class Graph<V, W extends Comparable<W>> {
             addVertex(b);
         }
 
-        return adjacency.get(a).put(b, weight) == null;
+        if (adjacency.get(a).put(b, weight) == null) {
+            edgeCount++;
+            return true;
+        }
+        return false;
     }
     public W getEdgeWeight(V a, V b) {
         if (!containsVertex(a) || !containsVertex(b) || !isAdjacent(a, b)) {
@@ -57,11 +68,18 @@ public class Graph<V, W extends Comparable<W>> {
             return false;
         }
 
-        return adjacency.get(a).remove(b) != null;
+        if (adjacency.get(a).remove(b) != null) {
+            edgeCount--;
+            return true;
+        }
+        return false;
+    }
+    public int edgeCount() {
+        return edgeCount;
     }
 
-    public Iterable<V> getAdjacent(V vertex) {
-        return adjacency.get(vertex).keySet();
+    public Set<V> getAdjacent(V vertex) {
+        return Collections.unmodifiableSet(adjacency.get(vertex).keySet());
     }
     public boolean isAdjacent(V a, V b) {
         return containsVertex(a) && adjacency.get(a).containsKey(b);
@@ -77,7 +95,7 @@ public class Graph<V, W extends Comparable<W>> {
         for (int i = 0; i < nEdges; i++) {
             Matcher m = EDGE_PATTERN.matcher(r.readLine());
             if (!m.matches()) {
-                throw new IOException(String.format("Input line %d contains an invalid edge", i));
+                throw new IOException(String.format("Input line %d contains an invalid edge", i + 2));
             }
 
             int a = Integer.parseInt(m.group("a"));
