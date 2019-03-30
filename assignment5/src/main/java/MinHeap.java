@@ -1,9 +1,6 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
-public class MinHeap<E extends Comparable<E>> implements Collection<E> {
+public class MinHeap<E extends Comparable<E>> implements Collection<E>, Queue<E> {
     private List<E> heap;
 
     public MinHeap() {
@@ -41,15 +38,15 @@ public class MinHeap<E extends Comparable<E>> implements Collection<E> {
         return heap.toArray(a);
     }
 
-    private static int hi(int i) {
+    protected static int hi(int i) {
         return i - 1;
     }
-    private void swap(int a, int b) {
+    protected void swap(int a, int b) {
         E tmp = heap.get(a);
         heap.set(a, heap.get(b));
         heap.set(b, tmp);
     }
-    private void bubbleUp(int i) {
+    protected void bubbleUp(int i) {
         for (; i > 1 && heap.get(hi(i/2)).compareTo(heap.get(hi(i))) > 0; i /= 2) {
             swap(hi(i), hi(i/2));
         }
@@ -61,6 +58,35 @@ public class MinHeap<E extends Comparable<E>> implements Collection<E> {
         return true;
     }
 
+    @Override
+    public boolean offer(E e) {
+        return add(e);
+    }
+    @Override
+    public E remove() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+
+        return extractMin();
+    }
+    @Override
+    public E poll() {
+        return extractMin();
+    }
+    @Override
+    public E element() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+
+        return getMin();
+    }
+    @Override
+    public E peek() {
+        return getMin();
+    }
+
     public E getMin() {
         if (heap.size() == 0) {
             return null;
@@ -68,7 +94,7 @@ public class MinHeap<E extends Comparable<E>> implements Collection<E> {
 
         return heap.get(0);
     }
-    private void sinkDown(int i) {
+    protected void sinkDown(int i) {
         while (i*2 <= heap.size()) {
             int j = i*2;
             if (j < heap.size() && heap.get(hi(j)).compareTo(heap.get(hi(j + 1))) > 0) {

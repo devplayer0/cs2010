@@ -3,6 +3,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -103,6 +104,12 @@ public class CompetitionTests {
         heap.toArray();
         heap.toArray(new Double[0]);
         heap.containsAll(new ArrayList<>());
+        heap.offer(123.);
+        heap.element();
+        heap.peek();
+        heap.poll();
+        heap.offer(123.);
+        heap.remove();
         heap.clear();
 
         try {
@@ -117,6 +124,15 @@ public class CompetitionTests {
             heap.retainAll(null);
             fail();
         } catch (UnsupportedOperationException ex) {}
+
+        try {
+            heap.element();
+            fail();
+        } catch (NoSuchElementException ex) {}
+        try {
+            heap.remove();
+            fail();
+        } catch (NoSuchElementException ex) {}
     }
     @Test
     public void testHeap() {
