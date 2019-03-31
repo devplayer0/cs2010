@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ public class IndexingMinHeap<E extends Comparable<E>> extends MinHeap<E> {
     }
     public IndexingMinHeap(int initialCapacity) {
         super(initialCapacity);
-        indices = new HashMap<>();
+        indices = new HashMap<>(initialCapacity);
     }
 
     @Override
@@ -38,6 +39,14 @@ public class IndexingMinHeap<E extends Comparable<E>> extends MinHeap<E> {
     }
     public int indexOf(E e) {
         return indices.containsKey(e) ? indices.get(e) : -1;
+    }
+    @Override
+    public boolean contains(Object o) {
+        return indices.containsKey(o);
+    }
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return indices.keySet().containsAll(c);
     }
 
     @Override

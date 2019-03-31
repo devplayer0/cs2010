@@ -1,9 +1,7 @@
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -161,6 +159,8 @@ public class CompetitionTests {
         heap.extractMin();
         heap.extractMin();
         heap.extractMin();
+        assertTrue(heap.contains(9));
+        assertTrue(heap.containsAll(Arrays.asList(9, 5, 3)));
         for (int i = 0; i < heap.size(); i++) {
             assertEquals(i, heap.indexOf(heap.heap.get(i)));
         }
@@ -171,6 +171,54 @@ public class CompetitionTests {
         heap = new IndexingMinHeap<>(1);
         assertNull(heap.extractMin());
         assertEquals(-1, heap.indexOf(123));
+    }
+    @Test
+    public void testPriorityQueue() {
+        PriorityQueue<String, Double> queue = new PriorityQueue<>();
+        assertNull(queue.getMin());
+        assertNull(queue.extractMin());
+
+        // equals() for coverage...
+        PriorityQueue.QueueItem i = queue.new QueueItem("test", 2.);
+        assertEquals(i, i);
+        assertFalse(i.equals(null));
+        assertFalse(i.equals("test"));
+        assertNotEquals(queue.new QueueItem("lol", 1.), i);
+        assertNotEquals(queue.new QueueItem("test", 1.), i);
+        assertEquals(queue.new QueueItem("test", 2.), i);
+
+        queue.insert("test", 1.);
+        queue.insert("lol", 3.);
+        queue.insert("lel", -1.);
+        queue.insert("1337", 0.);
+        queue.insert("zoop", 8.);
+        assertEquals("lel", queue.getMin());
+        assertFalse(queue.insert("1337", 0.));
+
+        assertEquals("lel", queue.extractMin());
+        assertEquals("1337", queue.extractMin());
+        assertNull(queue.getPriority("123123123"));
+        assertEquals(3., queue.getPriority("lol"), 0);
+
+        assertFalse(queue.changePriority("lol", 3.));
+        assertEquals("test", queue.getMin());
+        assertTrue(queue.changePriority("lol", -5.));
+        assertEquals("lol", queue.getMin());
+        assertTrue(queue.changePriority("test", 5.));
+
+        assertTrue(queue.changePriority("asdf", -50.));
+        assertEquals("asdf", queue.getMin());
+        queue.clear();
+        assertTrue(queue.isEmpty());
+
+        Map<String, Double> map = new HashMap<>();
+        map.put("qwe", 5.);
+        map.put("rty", 7.);
+        map.put("zxc", 1.);
+        queue = new PriorityQueue<>(3);
+        queue.insertAll(map);
+        assertEquals(3, queue.size());
+        assertEquals("zxc", queue.getMin());
     }
 
     @Test
