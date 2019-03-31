@@ -222,14 +222,25 @@ public class CompetitionTests {
         assertEquals("zxc", queue.getMin());
     }
 
-    @Test
-    public void testDijkstraConstructor() throws IOException {
-        new CompetitionDijkstra("res:1000EWD.txt", 1, 2, 3);
-        new CompetitionDijkstra("src/test/resources/1000EWD.txt", 1, 2, 3);
+    private static Competition instantiateComp(Class<? extends Competition> compClass, String filename, int sA, int sB, int sC) {
+        try {
+            return compClass
+                    .getDeclaredConstructor(String.class, int.class, int.class, int.class)
+                    .newInstance(filename, sA, sB, sC);
+        } catch (ReflectiveOperationException ex) {
+            throw new IllegalArgumentException(String.format("Failed to instantiate %s: %s", compClass, ex));
+        }
     }
     @Test
-    public void testDijkstraDistances() throws IOException {
-        Competition comp = new CompetitionDijkstra("res:tinyEWD.txt", 1, 2, 3);
+    public void testCompetitionConstructors() {
+        instantiateComp(CompetitionDijkstra.class, "res:1000EWD.txt", 1, 2, 3);
+        instantiateComp(CompetitionDijkstra.class, "src/test/resources/1000EWD.txt", 1, 2, 3);
+
+        instantiateComp(CompetitionFloydWarshall.class, "res:1000EWD.txt", 1, 2, 3);
+        instantiateComp(CompetitionFloydWarshall.class, "src/test/resources/1000EWD.txt", 1, 2, 3);
+    }
+
+    private void testDistances(Competition comp) {
         double[][] dist = comp.findDistances();
         assertEquals(1.53, dist[5][2], 0.0001);
         assertEquals(1.13, dist[5][6], 0.0001);
@@ -240,21 +251,27 @@ public class CompetitionTests {
         assertEquals(1.83, dist[2][0], 0.0001);
     }
     @Test
-    public void testDijkstraCompetition() throws IOException {
-        Competition comp1 = new CompetitionDijkstra("res:tinyEWD.txt", 1, 2, 3);
+    public void testDistances() throws IOException {
+        testDistances(instantiateComp(CompetitionDijkstra.class, "res:tinyEWD.txt", 1, 2, 3));
+        testDistances(instantiateComp(CompetitionDijkstra.class, "res:tinyEWD.txt", 1, 2, 3));
+    }
+
+    private void testCompetition(Class<? extends Competition> compClass) {
+        Competition comp1 = instantiateComp(compClass, "res:tinyEWD.txt", 1, 2, 3);
         assertEquals(2, comp1.timeRequiredforCompetition());
 
-        Competition comp2 = new CompetitionDijkstra("res:badCity.txt", 1, 2, 3);
+        Competition comp2 = instantiateComp(compClass, "res:badCity.txt", 1, 2, 3);
         assertEquals(-1, comp2.timeRequiredforCompetition());
 
-        Competition comp3 = new CompetitionDijkstra("res:1000EWD.txt", 1, 2, 3);
+        Competition comp3 = instantiateComp(compClass, "res:1000EWD.txt", 1, 2, 3);
         assertEquals(2, comp3.timeRequiredforCompetition());
     }
-
     @Test
-    public void testFWConstructor() {
-        // TODO: implement
+    public void testDijkstraCompetition() {
+        testCompetition(CompetitionDijkstra.class);
     }
-
-    // TODO: add more tests
+    @Test
+    public void testFWCompetition() {
+        testCompetition(CompetitionFloydWarshall.class);
+    }
 }
