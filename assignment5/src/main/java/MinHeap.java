@@ -38,8 +38,14 @@ public class MinHeap<E extends Comparable<E>> implements Collection<E>, Queue<E>
         return heap.toArray(a);
     }
 
-    static int hi(int i) {
-        return i - 1;
+    static int pi(int i) {
+        return (i - 1) / 2;
+    }
+    static int li(int i) {
+        return (i * 2) + 1;
+    }
+    static int ri(int i) {
+        return (i * 2) + 2;
     }
     protected void swap(int a, int b) {
         E tmp = heap.get(a);
@@ -47,14 +53,15 @@ public class MinHeap<E extends Comparable<E>> implements Collection<E>, Queue<E>
         heap.set(b, tmp);
     }
     protected void bubbleUp(int i) {
-        for (; i > 1 && heap.get(hi(i/2)).compareTo(heap.get(hi(i))) > 0; i /= 2) {
-            swap(hi(i), hi(i/2));
+        E e = heap.get(i);
+        for (; i > 0 && e.compareTo(heap.get(pi(i))) < 0; i = pi(i)) {
+            swap(i, pi(i));
         }
     }
     @Override
     public boolean add(E e) {
         heap.add(heap.size(), e);
-        bubbleUp(heap.size());
+        bubbleUp(heap.size()-1);
         return true;
     }
 
@@ -95,16 +102,16 @@ public class MinHeap<E extends Comparable<E>> implements Collection<E>, Queue<E>
         return heap.get(0);
     }
     protected void sinkDown(int i) {
-        while (i*2 <= heap.size()) {
-            int j = i*2;
-            if (j < heap.size() && heap.get(hi(j)).compareTo(heap.get(hi(j + 1))) > 0) {
-                j++;
+        while (li(i) < heap.size()) {
+            int j = li(i);
+            if (j < heap.size()-1 && heap.get(li(i)).compareTo(heap.get(ri(i))) > 0) {
+                j = ri(i);
             }
-            if (heap.get(hi(i)).compareTo(heap.get(hi(j))) <= 0) {
+            if (heap.get(i).compareTo(heap.get(j)) <= 0) {
                 break;
             }
 
-            swap(hi(i), hi(j));
+            swap(i, j);
             i = j;
         }
     }
@@ -116,7 +123,7 @@ public class MinHeap<E extends Comparable<E>> implements Collection<E>, Queue<E>
         E min = getMin();
         heap.set(0, heap.get(heap.size()-1));
         heap.remove(heap.size()-1);
-        sinkDown(1);
+        sinkDown(0);
 
         return min;
     }

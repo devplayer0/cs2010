@@ -96,9 +96,9 @@ public class PriorityQueue<E, P extends Comparable<P>> {
         int cmp = newP.compareTo(item.p);
         item.p = newP;
         if (cmp < 0) {
-            heap.bubbleUp(index + 1);
+            heap.bubbleUp(index);
         } else if (cmp > 0) {
-            heap.sinkDown(index + 1);
+            heap.sinkDown(index);
         } else {
             return false;
         }
