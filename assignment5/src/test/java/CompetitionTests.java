@@ -184,6 +184,7 @@ public class CompetitionTests {
         assertEquals(i, i);
         assertFalse(i.equals(null));
         assertFalse(i.equals("test"));
+        assertEquals("test: 2.0", i.toString());
         assertNotEquals(queue.new QueueItem("lol", 1.), i);
         assertEquals(queue.new QueueItem("test", 2.), i);
 

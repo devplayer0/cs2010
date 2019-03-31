@@ -44,13 +44,6 @@ public class IndexingMinHeap<E extends Comparable<E>> extends MinHeap<E> {
         sinkDown(0);
 
         indices.remove(min);
-        for (int i = 0; i < heap.size(); i++) {
-            E e = heap.get(i);
-            int index = indexOf(e);
-            if (index != i) {
-                System.err.printf("index of %s corrupted (should be %d, was %d)!\n", e, i, indexOf(e));
-            }
-        }
         return min;
     }
     public int indexOf(E e) {
