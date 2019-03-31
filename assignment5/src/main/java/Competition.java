@@ -18,7 +18,7 @@ import java.util.Map;
  * streets that the contestants can use to traverse the city.
  *
  */
-public abstract class BaseCompetition {
+public abstract class Competition {
     protected Graph<Integer, Double> city;
     protected int sA, sB, sC;
 
@@ -26,7 +26,7 @@ public abstract class BaseCompetition {
      * @param filename: A filename containing the details of the city road network
      * @param sA, sB, sC: speeds for 3 contestants
      */
-    public BaseCompetition(String filename, int sA, int sB, int sC) throws IOException {
+    public Competition(String filename, int sA, int sB, int sC) throws IOException {
         InputStream in = filename.startsWith("res:") ?
                 getClass().getResourceAsStream(filename.substring("res:".length())) :
                 new FileInputStream(filename);
