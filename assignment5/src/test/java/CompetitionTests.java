@@ -244,6 +244,9 @@ public class CompetitionTests {
     public void testDijkstraCompetition() throws IOException {
         Competition comp1 = new CompetitionDijkstra("res:tinyEWD.txt", 1, 2, 3);
         assertEquals(2, comp1.timeRequiredforCompetition());
+
+        Competition comp2 = new CompetitionDijkstra("res:badCity.txt", 1, 2, 3);
+        assertEquals(-1, comp2.timeRequiredforCompetition());
     }
 
     @Test

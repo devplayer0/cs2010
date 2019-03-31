@@ -45,6 +45,10 @@ public abstract class Competition {
     private double minTimeRecurse(Map<Integer, Double> distances, Deque<Integer> speeds, double minTime) {
         int speed = speeds.remove();
         for (double distance : distances.values()) {
+            if (distance == Double.POSITIVE_INFINITY) {
+                return -1;
+            }
+
             double time = distance / (double)speed;
             if (time > minTime) {
                 minTime = time;
