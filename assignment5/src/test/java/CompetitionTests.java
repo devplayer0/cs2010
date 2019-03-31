@@ -185,7 +185,6 @@ public class CompetitionTests {
         assertFalse(i.equals(null));
         assertFalse(i.equals("test"));
         assertNotEquals(queue.new QueueItem("lol", 1.), i);
-        assertNotEquals(queue.new QueueItem("test", 1.), i);
         assertEquals(queue.new QueueItem("test", 2.), i);
 
         queue.insert("test", 1.);
@@ -223,8 +222,23 @@ public class CompetitionTests {
     }
 
     @Test
-    public void testDijkstraConstructor() {
-        // TODO: implement
+    public void testDijkstraConstructor() throws IOException {
+        new CompetitionDijkstra("res:1000EWD.txt", 1, 2, 3);
+        new CompetitionDijkstra("src/test/resources/1000EWD.txt", 1, 2, 3);
+    }
+
+    @Test
+    public void testDijkstraDistances() throws IOException {
+        Competition comp = new CompetitionDijkstra("res:tinyEWD.txt", 1, 2, 3);
+        Map<Integer, Double> dist1 = comp.findDistances(5);
+        assertEquals(1.53, dist1.get(2), 0.0001);
+        assertEquals(1.13, dist1.get(6), 0.0001);
+        assertEquals(1.71, dist1.get(0), 0.0001);
+
+        Map<Integer, Double> dist2 = comp.findDistances(2);
+        assertEquals(0.97, dist2.get(4), 0.0001);
+        assertEquals(0.94, dist2.get(1), 0.0001);
+        assertEquals(1.83, dist2.get(0), 0.0001);
     }
 
     @Test
