@@ -1,6 +1,9 @@
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.Map;
 
 /*
@@ -39,11 +42,35 @@ public abstract class Competition {
 
     abstract public Map<Integer, Double> findDistances(int start);
 
+    private double minTimeRecurse(Map<Integer, Double> distances, Deque<Integer> speeds, double minTime) {
+        int speed = speeds.remove();
+        for (double distance : distances.values()) {
+            double time = distance / (double)speed;
+            if (time > minTime) {
+                minTime = time;
+            }
+        }
+
+        return speeds.isEmpty() ? minTime : minTimeRecurse(distances, speeds, minTime);
+    }
     /**
      * @return int: minimum minutes that will pass before the three contestants can meet
      */
     public int timeRequiredforCompetition() {
-        // TODO: implement
-        return -1;
+        double minTime = -1;
+        for (int intersection : city.vertices()) {
+            Map<Integer, Double> distances = findDistances(intersection);
+            Deque<Integer> speeds = new ArrayDeque<>(Arrays.asList(sA, sB, sC));
+            double intersectionTime = minTimeRecurse(distances, speeds, -1);
+
+            if (intersectionTime == -1) {
+                return -1;
+            }
+            if (intersectionTime > minTime) {
+                minTime = intersectionTime;
+            }
+        }
+
+        return (int)Math.ceil(minTime);
     }
 }

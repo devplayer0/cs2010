@@ -227,7 +227,6 @@ public class CompetitionTests {
         new CompetitionDijkstra("res:1000EWD.txt", 1, 2, 3);
         new CompetitionDijkstra("src/test/resources/1000EWD.txt", 1, 2, 3);
     }
-
     @Test
     public void testDijkstraDistances() throws IOException {
         Competition comp = new CompetitionDijkstra("res:tinyEWD.txt", 1, 2, 3);
@@ -240,6 +239,11 @@ public class CompetitionTests {
         assertEquals(0.97, dist2.get(4), 0.0001);
         assertEquals(0.94, dist2.get(1), 0.0001);
         assertEquals(1.83, dist2.get(0), 0.0001);
+    }
+    @Test
+    public void testDijkstraCompetition() throws IOException {
+        Competition comp1 = new CompetitionDijkstra("res:tinyEWD.txt", 1, 2, 3);
+        assertEquals(2, comp1.timeRequiredforCompetition());
     }
 
     @Test
