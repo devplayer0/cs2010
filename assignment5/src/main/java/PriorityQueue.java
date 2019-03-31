@@ -20,7 +20,7 @@ public class PriorityQueue<E, P extends Comparable<P>> {
 
         @Override
         public int hashCode() {
-            return Objects.hash(e, p);
+            return Objects.hash(e);
         }
         @Override
         public boolean equals(Object o) {
@@ -35,7 +35,11 @@ public class PriorityQueue<E, P extends Comparable<P>> {
             }
 
             QueueItem item = (QueueItem)o;
-            return Objects.equals(item.e, e) && Objects.equals(item.p, p);
+            return Objects.equals(item.e, e);
+        }
+        @Override
+        public String toString() {
+            return String.format("%s: %s", e, p);
         }
     }
 
@@ -76,7 +80,9 @@ public class PriorityQueue<E, P extends Comparable<P>> {
             return null;
         }
 
-        return heap.extractMin().e;
+        E min = heap.extractMin().e;
+        items.remove(min);
+        return min;
     }
     public P getPriority(E e) {
         if (!items.containsKey(e)) {
