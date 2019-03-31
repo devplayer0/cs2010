@@ -95,6 +95,9 @@ public class Graph<V, W extends Comparable<W>> {
         int nEdges = Integer.parseInt(r.readLine());
 
         Graph<Integer, Double> graph = new Graph<>();
+        for (int i = 0; i < nVertices; i++) {
+            graph.addVertex(i);
+        }
         for (int i = 0; i < nEdges; i++) {
             Matcher m = EDGE_PATTERN.matcher(r.readLine());
             if (!m.matches()) {
