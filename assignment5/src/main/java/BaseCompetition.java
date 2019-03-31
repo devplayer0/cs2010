@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 /*
  * A Contest to Meet (ACM) is a reality TV contest that sets three contestants at three random
@@ -36,8 +37,13 @@ public abstract class BaseCompetition {
         this.sC = sC;
     }
 
+    abstract public Map<Integer, Double> findDistances(int start);
+
     /**
      * @return int: minimum minutes that will pass before the three contestants can meet
      */
-    abstract public int timeRequiredforCompetition();
+    public int timeRequiredforCompetition() {
+        // TODO: implement
+        return -1;
+    }
 }

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Map;
 
 /*
  * This class implements the competition using the Floyd-Warshall algorithm
@@ -9,8 +10,8 @@ public class CompetitionFloydWarshall extends BaseCompetition {
     }
 
     @Override
-    public int timeRequiredforCompetition() {
+    public Map<Integer, Double> findDistances(int start) {
         // TODO: implement
-        return -1;
+        return null;
     }
 }
