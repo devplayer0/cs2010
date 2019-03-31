@@ -150,6 +150,28 @@ public class CompetitionTests {
         assertEquals(3., heap.extractMin(), 0);
         assertEquals(5., heap.extractMin(), 0);
     }
+    @Test
+    public void testIndexingHeap() {
+        IndexingMinHeap<Integer> heap = new IndexingMinHeap<>();
+        heap.addAll(Arrays.asList(5, 3, 9, 0, 1, 1, -2, 11));
+
+        for (int i = 0; i < heap.size(); i++) {
+            assertEquals(i, heap.indexOf(heap.heap.get(i)));
+        }
+        heap.extractMin();
+        heap.extractMin();
+        heap.extractMin();
+        for (int i = 0; i < heap.size(); i++) {
+            assertEquals(i, heap.indexOf(heap.heap.get(i)));
+        }
+        heap.clear();
+        assertTrue(heap.isEmpty());
+        assertTrue(heap.indices.isEmpty());
+
+        heap = new IndexingMinHeap<>(1);
+        assertNull(heap.extractMin());
+        assertEquals(-1, heap.indexOf(123));
+    }
 
     @Test
     public void testDijkstraConstructor() {

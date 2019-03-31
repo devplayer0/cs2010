@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class MinHeap<E extends Comparable<E>> implements Collection<E>, Queue<E> {
-    private List<E> heap;
+    List<E> heap;
 
     public MinHeap() {
         heap = new ArrayList<>();
@@ -38,7 +38,7 @@ public class MinHeap<E extends Comparable<E>> implements Collection<E>, Queue<E>
         return heap.toArray(a);
     }
 
-    protected static int hi(int i) {
+    static int hi(int i) {
         return i - 1;
     }
     protected void swap(int a, int b) {
