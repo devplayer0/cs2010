@@ -40,11 +40,11 @@ public abstract class Competition {
         this.sC = sC;
     }
 
-    abstract public Map<Integer, Double> findDistances(int start);
+    abstract public double[][] findDistances();
 
-    private double minTimeRecurse(Map<Integer, Double> distances, Deque<Integer> speeds, double minTime) {
+    private double minTimeRecurse(double[] distances, Deque<Integer> speeds, double minTime) {
         int speed = speeds.remove();
-        for (double distance : distances.values()) {
+        for (double distance : distances) {
             if (distance == Double.POSITIVE_INFINITY) {
                 return -1;
             }
@@ -62,10 +62,10 @@ public abstract class Competition {
      */
     public int timeRequiredforCompetition() {
         double minTime = -1;
+        double[][] allDistances = findDistances();
         for (int intersection : city.vertices()) {
-            Map<Integer, Double> distances = findDistances(intersection);
             Deque<Integer> speeds = new ArrayDeque<>(Arrays.asList(sA, sB, sC));
-            double intersectionTime = minTimeRecurse(distances, speeds, -1);
+            double intersectionTime = minTimeRecurse(allDistances[intersection], speeds, -1);
 
             if (intersectionTime == -1) {
                 return -1;

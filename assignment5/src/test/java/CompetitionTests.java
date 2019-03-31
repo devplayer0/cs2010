@@ -230,15 +230,14 @@ public class CompetitionTests {
     @Test
     public void testDijkstraDistances() throws IOException {
         Competition comp = new CompetitionDijkstra("res:tinyEWD.txt", 1, 2, 3);
-        Map<Integer, Double> dist1 = comp.findDistances(5);
-        assertEquals(1.53, dist1.get(2), 0.0001);
-        assertEquals(1.13, dist1.get(6), 0.0001);
-        assertEquals(1.71, dist1.get(0), 0.0001);
+        double[][] dist = comp.findDistances();
+        assertEquals(1.53, dist[5][2], 0.0001);
+        assertEquals(1.13, dist[5][6], 0.0001);
+        assertEquals(1.71, dist[5][0], 0.0001);
 
-        Map<Integer, Double> dist2 = comp.findDistances(2);
-        assertEquals(0.97, dist2.get(4), 0.0001);
-        assertEquals(0.94, dist2.get(1), 0.0001);
-        assertEquals(1.83, dist2.get(0), 0.0001);
+        assertEquals(0.97, dist[2][4], 0.0001);
+        assertEquals(0.94, dist[2][1], 0.0001);
+        assertEquals(1.83, dist[2][0], 0.0001);
     }
     @Test
     public void testDijkstraCompetition() throws IOException {
@@ -247,6 +246,9 @@ public class CompetitionTests {
 
         Competition comp2 = new CompetitionDijkstra("res:badCity.txt", 1, 2, 3);
         assertEquals(-1, comp2.timeRequiredforCompetition());
+
+        Competition comp3 = new CompetitionDijkstra("res:1000EWD.txt", 1, 2, 3);
+        assertEquals(2, comp3.timeRequiredforCompetition());
     }
 
     @Test

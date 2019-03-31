@@ -10,7 +10,7 @@ public class CompetitionFloydWarshall extends Competition {
     }
 
     @Override
-    public Map<Integer, Double> findDistances(int start) {
+    public double[][] findDistances() {
         // TODO: implement
         return null;
     }
