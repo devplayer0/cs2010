@@ -41,6 +41,9 @@ public class Graph<V, W extends Comparable<W>> {
     public int vertexCount() {
         return adjacency.size();
     }
+    public Set<V> vertices() {
+        return Collections.unmodifiableSet(adjacency.keySet());
+    }
 
     public boolean addEdge(V a, V b, W weight) {
         if (!containsVertex(a)) {

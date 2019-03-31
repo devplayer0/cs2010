@@ -17,6 +17,7 @@ public class CompetitionTests {
         assertTrue(graph.removeVertex(2));
         assertFalse(graph.removeVertex(2));
         assertEquals(2, graph.vertexCount());
+        assertEquals(new HashSet<>(Arrays.asList(0, 1)), graph.vertices());
         assertEquals(0, graph.edgeCount());
         assertEquals(0, graph.getAdjacent(0).size());
         assertFalse(graph.isAdjacent(0, 1));
