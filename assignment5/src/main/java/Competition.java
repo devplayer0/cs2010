@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.Map;
 
 /*
  * A Contest to Meet (ACM) is a reality TV contest that sets three contestants at three random
@@ -23,7 +22,7 @@ import java.util.Map;
  */
 public abstract class Competition {
     protected Graph<Integer, Double> city;
-    protected int sA, sB, sC;
+    int sA, sB, sC;
 
     /**
      * @param filename: A filename containing the details of the city road network
@@ -61,6 +60,10 @@ public abstract class Competition {
      * @return int: minimum minutes that will pass before the three contestants can meet
      */
     public int timeRequiredforCompetition() {
+        if (sA < 50 || sB < 50 || sC < 50 || sA > 100 || sB > 100 || sC > 100) {
+            return -1;
+        }
+
         double minTime = -1;
         double[][] allDistances = findDistances();
         for (int intersection : city.vertices()) {
