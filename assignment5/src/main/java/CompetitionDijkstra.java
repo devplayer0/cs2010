@@ -1,10 +1,8 @@
-import java.io.IOException;
-
 /*
  * This class implements the competition using Dijkstra's algorithm
  */
 public class CompetitionDijkstra extends Competition {
-    public CompetitionDijkstra(String filename, int sA, int sB, int sC) throws IOException {
+    public CompetitionDijkstra(String filename, int sA, int sB, int sC) {
         super(filename, sA, sB, sC);
     }
 
