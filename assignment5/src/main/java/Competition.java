@@ -28,15 +28,19 @@ public abstract class Competition {
      * @param filename: A filename containing the details of the city road network
      * @param sA, sB, sC: speeds for 3 contestants
      */
-    public Competition(String filename, int sA, int sB, int sC) throws IOException {
-        InputStream in = filename.startsWith("res:") ?
-                getClass().getResourceAsStream(filename.substring("res:".length())) :
-                new FileInputStream(filename);
+    public Competition(String filename, int sA, int sB, int sC) {
+        try {
+            InputStream in = filename.startsWith("res:") ?
+                    getClass().getResourceAsStream(filename.substring("res:".length())) :
+                    new FileInputStream(filename);
 
-        this.city = Graph.parseFromStream(in);
-        this.sA = sA;
-        this.sB = sB;
-        this.sC = sC;
+            this.city = Graph.parseFromStream(in);
+            this.sA = sA;
+            this.sB = sB;
+            this.sC = sC;
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     abstract public double[][] findDistances();

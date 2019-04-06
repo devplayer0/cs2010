@@ -1,0 +1,7 @@
+task webcatJar(overwrite: true, type: Jar) {
+    classifier = 'webcat'
+    from sourceSets.main.allJava + sourceSets.test.allJava + sourceSets.test.resources
+    from('.') {
+        include 'src/test/resources/*'
+    }
+}

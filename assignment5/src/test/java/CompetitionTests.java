@@ -304,7 +304,7 @@ public class CompetitionTests {
         assertEquals(1.83, dist[2][0], 0.0001);
     }
     @Test
-    public void testDistances() throws IOException {
+    public void testDistances() {
         testDistances(instantiateComp(CompetitionDijkstra.class, "res:tinyEWD.txt", 50, 60, 70));
         testDistances(instantiateComp(CompetitionFloydWarshall.class, "res:tinyEWD.txt", 50, 60, 70));
     }
