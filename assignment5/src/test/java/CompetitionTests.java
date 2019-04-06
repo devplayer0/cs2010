@@ -5,6 +5,43 @@ import java.util.*;
 
 import static org.junit.Assert.*;
 
+/**
+ * 1. Justify the choice of the data structures used in CompetitionDijkstra and CompetitionFloydWarshall
+ *
+ *    Graph: Shared between CompetitionDijkstra and CompetitionFloydWarshall. Uses an adjacency list implementation of a
+ *    graph. This makes sense since both algorithms iterate over the adjacent vertices for each vertex in the graph.
+ *
+ *    CompetitionDijkstra: The most important data structure in the Dijkstra shortest path implementation is the
+ *    unvisited set. The simplest implementation uses an unordered list with linear search for the closest next vertex.
+ *    However, a binary heap-based priority queue implementation (with decrease-key) greatly improves performance with
+ *    sparse graphs. This definitely applies in this case since the graph represents a city. MinHeap implements a heap
+ *    with the required `extractMin()` function. IndexingMinHeap makes use of a HashMap to cache the indices into the
+ *    heap array. This is necessary for PriorityQueue, which implements `changePriority()`. This method looks up the
+ *    index from the HashMap and then changes its priority and calls `bubbleUp()` / `sinkDown()` accordingly.
+ *
+ *    Since this implementation uses an abstract `Competition` class (which implements the minimum time search based on
+ *    a matrix of shortest paths returned by a subclass's `findDistances()` method), CompetitionDijkstra runs Dijkstra's
+ *    algorithm for every vertex in the graph. It is also worth noting that the `prevNode` map is not used, since the
+ *    only the distances are relevant to the assignment.
+ *
+ *    CompetitionFloydWarshall: There is relatively little to discuss here that is not the same as the Dijkstra
+ *    implementation. Floyd-Warshall manipulates the distance matrix directly and produces the distances for all pairs.
+ *
+ * 2. Explain theoretical differences in the performance of Dijkstra and Floyd-Warshall algorithms
+ *    in the given problem. Also explain how would their relative performance be affected by the
+ *    density of the graph. Which would you choose in which set of circumstances and why?
+ *
+ *    Thanks to the binary heap, the Dijkstra implementation runs in O(VE log V), whereas the Floyd-Warshall
+ *    implementation runs in O(V^3). With a larger "city", this shows a serious performance improvement. It is
+ *    worth noting that Floyd-Warshall only requires the graph and the result matrix, whereas also Dijkstra needs a
+ *    minheap with `decreaseKey()` (which, as explained above, stores a HashMap of all the vertices as well as the array
+ *    backing the heap itself).
+ *
+ *    Since a "city" is a relatively sparse graph, it makes more sense to use Dijkstra than Floyd-Warshall in this case
+ *    - the performance of Dijkstra is dependant on the number of edges, whereas Floyd-Warshall is only dependant on the
+ *    number of vertices. If the graph was much more dense (and the graph was very large), it would make more sense to
+ *    use Floyd-Warshall.
+ */
 public class CompetitionTests {
     @Test
     public void testBasicGraph() {
@@ -273,13 +310,13 @@ public class CompetitionTests {
     }
 
     private void testCompetition(Class<? extends Competition> compClass) {
-        Competition comp1 = instantiateComp(compClass, "res:tinyEWD.txt", 50, 60,70);
+        Competition comp1 = instantiateComp(compClass, "res:tinyEWD.txt", 50, 60, 70);
         assertEquals(1, comp1.timeRequiredforCompetition());
 
-        Competition comp2 = instantiateComp(compClass, "res:badCity.txt",50, 60, 70);
+        Competition comp2 = instantiateComp(compClass, "res:badCity.txt", 50, 60, 70);
         assertEquals(-1, comp2.timeRequiredforCompetition());
 
-        Competition comp3 = instantiateComp(compClass, "res:1000EWD.txt",50, 60, 70);
+        Competition comp3 = instantiateComp(compClass, "res:1000EWD.txt", 50, 60, 70);
         assertEquals(1, comp3.timeRequiredforCompetition());
     }
     @Test
