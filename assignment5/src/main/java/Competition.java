@@ -47,13 +47,13 @@ public abstract class Competition {
     abstract public double[][] findDistances();
 
     private double minTimeRecurse(double[] distances, Deque<Integer> speeds, double minTime) {
-        int speed = speeds.remove();
+        double speed = speeds.remove() / 1000.;
         for (double distance : distances) {
             if (distance == Double.POSITIVE_INFINITY) {
                 return -1;
             }
 
-            double time = distance / (double)speed;
+            double time = distance / speed;
             if (time > minTime) {
                 minTime = time;
             }

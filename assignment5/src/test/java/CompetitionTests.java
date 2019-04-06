@@ -314,7 +314,7 @@ public class CompetitionTests {
 
     private void testCompetition(Class<? extends Competition> compClass) {
         Competition comp1 = instantiateComp(compClass, "res:tinyEWD.txt", 50, 60, 70);
-        assertEquals(1, comp1.timeRequiredforCompetition());
+        assertEquals(38, comp1.timeRequiredforCompetition());
 
         Competition comp2 = instantiateComp(compClass, "res:badCity.txt", 50, 60, 70);
         assertEquals(-1, comp2.timeRequiredforCompetition());
@@ -323,7 +323,7 @@ public class CompetitionTests {
         assertEquals(38, comp3.timeRequiredforCompetition());
 
         Competition comp4 = instantiateComp(compClass, "res:1000EWD.txt", 50, 60, 70);
-        assertEquals(1, comp4.timeRequiredforCompetition());
+        assertEquals(28, comp4.timeRequiredforCompetition());
     }
     @Test
     public void testDijkstraCompetition() {
