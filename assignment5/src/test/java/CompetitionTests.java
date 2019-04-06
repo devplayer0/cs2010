@@ -116,12 +116,7 @@ public class CompetitionTests {
         assertEquals(8, graph.vertexCount());
         assertEquals(15, graph.edgeCount());
 
-        try {
-            Graph.parseFromStream(getClass().getResourceAsStream("badGraph.txt"));
-            fail();
-        } catch (IOException e) {
-            assertEquals("Input line 3 contains an invalid edge", e.getMessage());
-        }
+        assertNull(Graph.parseFromStream(getClass().getResourceAsStream("badGraph.txt")));
 
         Graph<Integer, Double> graph3 = Graph.parseFromStream(getClass().getResourceAsStream("1000EWD.txt"));
         assertEquals(1000, graph3.vertexCount());
@@ -290,6 +285,16 @@ public class CompetitionTests {
         comp.sB = 101;
         assertEquals(-1, comp.timeRequiredforCompetition());
         comp.sA = 101;
+        assertEquals(-1, comp.timeRequiredforCompetition());
+
+        // Check non-existent file
+        try {
+            instantiateComp(CompetitionDijkstra.class, "lol.txt", 50, 60, 70);
+            fail();
+        } catch (RuntimeException ex) {}
+
+        // Check null graph
+        comp = instantiateComp(CompetitionDijkstra.class, null, 50, 60, 70);
         assertEquals(-1, comp.timeRequiredforCompetition());
     }
 

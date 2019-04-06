@@ -29,6 +29,9 @@ public abstract class Competition {
      * @param sA, sB, sC: speeds for 3 contestants
      */
     public Competition(String filename, int sA, int sB, int sC) {
+        if (filename == null) {
+            return;
+        }
         try {
             InputStream in = filename.startsWith("res:") ?
                     getClass().getResourceAsStream(filename.substring("res:".length())) :
@@ -64,7 +67,7 @@ public abstract class Competition {
      * @return int: minimum minutes that will pass before the three contestants can meet
      */
     public int timeRequiredforCompetition() {
-        if (sA < 50 || sB < 50 || sC < 50 || sA > 100 || sB > 100 || sC > 100) {
+        if (city == null || sA < 50 || sB < 50 || sC < 50 || sA > 100 || sB > 100 || sC > 100) {
             return -1;
         }
 

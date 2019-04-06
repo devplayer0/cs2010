@@ -101,7 +101,7 @@ public class Graph<V, W extends Comparable<W>> {
         for (int i = 0; i < nEdges; i++) {
             Matcher m = EDGE_PATTERN.matcher(r.readLine());
             if (!m.matches()) {
-                throw new IOException(String.format("Input line %d contains an invalid edge", i + 2));
+                return null;
             }
 
             int a = Integer.parseInt(m.group("a"));
