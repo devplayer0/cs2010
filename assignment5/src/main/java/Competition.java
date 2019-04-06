@@ -41,9 +41,7 @@ public abstract class Competition {
             this.sA = sA;
             this.sB = sB;
             this.sC = sC;
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        } catch (IOException ex) {}
     }
 
     abstract public double[][] findDistances();

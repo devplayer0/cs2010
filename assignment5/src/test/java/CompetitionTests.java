@@ -288,10 +288,8 @@ public class CompetitionTests {
         assertEquals(-1, comp.timeRequiredforCompetition());
 
         // Check non-existent file
-        try {
-            instantiateComp(CompetitionDijkstra.class, "lol.txt", 50, 60, 70);
-            fail();
-        } catch (RuntimeException ex) {}
+        comp = instantiateComp(CompetitionDijkstra.class, "lol.txt", 50, 60, 70);
+        assertEquals(-1, comp.timeRequiredforCompetition());
 
         // Check null graph
         comp = instantiateComp(CompetitionDijkstra.class, null, 50, 60, 70);
