@@ -88,7 +88,7 @@ public class Graph<V, W extends Comparable<W>> {
         return containsVertex(a) && adjacency.get(a).containsKey(b);
     }
 
-    private static final Pattern EDGE_PATTERN = Pattern.compile("^\\s*(?<a>\\d+)\\s*(?<b>\\d+)\\s*(?<weight>\\d+\\.\\d+)$");
+    private static final Pattern EDGE_PATTERN = Pattern.compile("^\\s*(?<a>\\d+)\\s*(?<b>\\d+)\\s*(?<weight>\\d+(?:\\.\\d+)?)$");
     public static Graph<Integer, Double> parseFromStream(InputStream in) throws IOException {
         BufferedReader r = new BufferedReader(new InputStreamReader(in));
         int nVertices = Integer.parseInt(r.readLine());
