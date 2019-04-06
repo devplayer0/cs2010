@@ -319,8 +319,11 @@ public class CompetitionTests {
         Competition comp2 = instantiateComp(compClass, "res:badCity.txt", 50, 60, 70);
         assertEquals(-1, comp2.timeRequiredforCompetition());
 
-        Competition comp3 = instantiateComp(compClass, "res:1000EWD.txt", 50, 60, 70);
-        assertEquals(28, comp3.timeRequiredforCompetition());
+        Competition comp3 = instantiateComp(compClass, "res:input-B.txt", 60, 80, 50);
+        assertEquals(10000, comp3.timeRequiredforCompetition());
+
+        Competition comp4 = instantiateComp(compClass, "res:1000EWD.txt", 50, 60, 70);
+        assertEquals(28, comp4.timeRequiredforCompetition());
     }
     @Test
     public void testDijkstraCompetition() {
